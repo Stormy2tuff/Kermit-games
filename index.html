@@ -1,12 +1,152 @@
 <!DOCTYPE html>
-<html>
-<body style="background:black;color:white;text-align:center;">
+<html lang="en">
 
-<h1>GAME HUB</h1>
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Game Hub</title>
 
-<button onclick="alert('WORKING')">
-CLICK HERE
-</button>
+<style>
+
+*{
+  margin:0;
+  padding:0;
+  box-sizing:border-box;
+  font-family:Arial,sans-serif;
+}
+
+body{
+  background:black;
+  color:white;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* SCREEN LAYOUT */
+.screen{
+  min-height:100vh;
+  display:flex;
+  flex-direction:column;
+  justify-content:center;
+  align-items:center;
+  text-align:center;
+}
+
+.hidden{
+  display:none;
+}
+
+/* TITLE */
+.title{
+  font-size:4rem;
+  letter-spacing:8px;
+  margin-bottom:20px;
+}
+
+/* BUTTON */
+button{
+  padding:20px 50px;
+  font-size:1.5rem;
+  font-weight:bold;
+  border:none;
+  border-radius:12px;
+  cursor:pointer;
+  background:white;
+  color:black;
+  transition:0.3s;
+}
+
+button:hover{
+  transform:scale(1.05);
+  background:black;
+  color:white;
+  border:2px solid white;
+}
+
+/* HUB LINKS */
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(220px,1fr));
+  gap:20px;
+  width:90%;
+  max-width:1000px;
+  margin-top:30px;
+}
+
+a{
+  display:block;
+  padding:20px;
+  background:rgba(255,255,255,0.1);
+  border:1px solid rgba(255,255,255,0.2);
+  border-radius:12px;
+  color:white;
+  text-decoration:none;
+  font-weight:bold;
+  transition:0.3s;
+}
+
+a:hover{
+  transform:translateY(-5px);
+  border:1px solid white;
+  background:rgba(255,255,255,0.2);
+}
+
+</style>
+
+</head>
+
+<body>
+
+<!-- START SCREEN -->
+<div id="start" class="screen">
+
+  <div class="title">GAME HUB</div>
+
+  <button onclick="openHub()">
+    CLICK HERE
+  </button>
+
+</div>
+
+<!-- HUB SCREEN -->
+<div id="hub" class="screen hidden">
+
+  <div class="title">HUB</div>
+
+  <div class="grid">
+
+    <a href="https://sites.google.com/view/nuggie16-games/home" target="_blank">
+      Nuggie16 Games
+    </a>
+
+    <a href="https://google.com" target="_blank">
+      Google
+    </a>
+
+    <a href="https://youtube.com" target="_blank">
+      YouTube
+    </a>
+
+    <a href="https://github.com" target="_blank">
+      GitHub
+    </a>
+
+    <a href="https://docs.google.com" target="_blank">
+      Google Docs
+    </a>
+
+  </div>
+
+</div>
+
+<script>
+
+function openHub(){
+  document.getElementById("start").classList.add("hidden");
+  document.getElementById("hub").classList.remove("hidden");
+}
+
+</script>
 
 </body>
 </html>
