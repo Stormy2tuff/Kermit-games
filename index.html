@@ -23,18 +23,6 @@ body{
   min-height:100vh;
 }
 
-/* 🌟 VIDEO BACKGROUND (ADDED ONLY) */
-#bgVideo{
-  position:fixed;
-  top:50%;
-  left:50%;
-  min-width:100%;
-  min-height:100%;
-  transform:translate(-50%,-50%);
-  object-fit:cover;
-  z-index:-3;
-}
-
 /* PARTICLES */
 .particle{
   position:fixed;
@@ -139,18 +127,62 @@ a:hover{
   to{ transform:translateY(-100vh); }
 }
 
+/* 🔥 ADDED TEXT READABILITY FIX (ONLY ADDITION) */
+body{
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+.title,
+.sub,
+a,
+button{
+  font-weight:800;
+  letter-spacing:1px;
+}
+
+.title{
+  text-shadow:
+    0 0 10px black,
+    0 0 20px black,
+    0 0 30px rgba(255,255,255,0.4);
+}
+
+.sub{
+  color:#f1f1f1;
+  text-shadow:0 0 10px black;
+}
+
+a{
+  color:white;
+  font-weight:700;
+  text-shadow:0 0 10px black;
+  background:rgba(0,0,0,0.35);
+  border:1px solid rgba(255,255,255,0.25);
+}
+
+button{
+  font-weight:900;
+  letter-spacing:2px;
+}
+
+a:hover{
+  background:rgba(0,0,0,0.55);
+  text-shadow:0 0 15px black;
+}
+
 </style>
 
 </head>
 
 <body>
 
-<!-- 🌟 VIDEO BACKGROUND (ADDED HERE) -->
+<!-- VIDEO BACKGROUND -->
 <video autoplay muted loop id="bgVideo">
   <source src="background.mp4" type="video/mp4">
 </video>
 
-<!-- 🔊 MUSIC (ADDED HERE) -->
+<!-- MUSIC -->
 <audio id="bgMusic" loop>
   <source src="music.mp3" type="audio/mpeg">
 </audio>
@@ -169,7 +201,7 @@ a:hover{
 <div id="hub" class="screen hidden">
 
   <div class="title">Kermit HUB</div>
-  <div class="sub">ALL THE GAMES</div>
+  <div class="sub">YOUR LINKS</div>
 
   <div class="grid">
 
@@ -217,7 +249,7 @@ function openHub(){
   document.getElementById("hub").classList.remove("hidden");
 }
 
-/* 🔊 MUSIC (ADDED HERE - SAFE FOR GITHUB) */
+/* MUSIC */
 document.addEventListener("click", () => {
   document.getElementById("bgMusic").play();
 }, { once: true });
