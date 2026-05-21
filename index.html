@@ -23,6 +23,25 @@ body{
   min-height:100vh;
 }
 
+/* 🌟 FIXED VIDEO BACKGROUND (CENTERED PROPERLY) */
+#bgVideo{
+  position:fixed;
+  top:50%;
+  left:50%;
+  min-width:100%;
+  min-height:100%;
+  width:auto;
+  height:auto;
+
+  transform:translate(-50%,-50%) scale(1.15);
+
+  object-fit:cover;
+
+  object-position:center center;
+
+  z-index:-3;
+}
+
 /* PARTICLES */
 .particle{
   position:fixed;
@@ -127,50 +146,6 @@ a:hover{
   to{ transform:translateY(-100vh); }
 }
 
-/* 🔥 ADDED TEXT READABILITY FIX (ONLY ADDITION) */
-body{
-  -webkit-font-smoothing:antialiased;
-  text-rendering:optimizeLegibility;
-}
-
-.title,
-.sub,
-a,
-button{
-  font-weight:800;
-  letter-spacing:1px;
-}
-
-.title{
-  text-shadow:
-    0 0 10px black,
-    0 0 20px black,
-    0 0 30px rgba(255,255,255,0.4);
-}
-
-.sub{
-  color:#f1f1f1;
-  text-shadow:0 0 10px black;
-}
-
-a{
-  color:white;
-  font-weight:700;
-  text-shadow:0 0 10px black;
-  background:rgba(0,0,0,0.35);
-  border:1px solid rgba(255,255,255,0.25);
-}
-
-button{
-  font-weight:900;
-  letter-spacing:2px;
-}
-
-a:hover{
-  background:rgba(0,0,0,0.55);
-  text-shadow:0 0 15px black;
-}
-
 </style>
 
 </head>
@@ -181,11 +156,6 @@ a:hover{
 <video autoplay muted loop id="bgVideo">
   <source src="background.mp4" type="video/mp4">
 </video>
-
-<!-- MUSIC -->
-<audio id="bgMusic" loop>
-  <source src="music.mp3" type="audio/mpeg">
-</audio>
 
 <!-- START -->
 <div id="start" class="screen">
@@ -248,11 +218,6 @@ function openHub(){
   document.getElementById("start").classList.add("hidden");
   document.getElementById("hub").classList.remove("hidden");
 }
-
-/* MUSIC */
-document.addEventListener("click", () => {
-  document.getElementById("bgMusic").play();
-}, { once: true });
 
 /* PARTICLES */
 for(let i=0;i<80;i++){
