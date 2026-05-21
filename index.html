@@ -23,6 +23,18 @@ body{
   min-height:100vh;
 }
 
+/* 🌟 VIDEO BACKGROUND (ADDED ONLY) */
+#bgVideo{
+  position:fixed;
+  top:50%;
+  left:50%;
+  min-width:100%;
+  min-height:100%;
+  transform:translate(-50%,-50%);
+  object-fit:cover;
+  z-index:-3;
+}
+
 /* PARTICLES */
 .particle{
   position:fixed;
@@ -133,6 +145,16 @@ a:hover{
 
 <body>
 
+<!-- 🌟 VIDEO BACKGROUND (ADDED HERE) -->
+<video autoplay muted loop id="bgVideo">
+  <source src="background.mp4" type="video/mp4">
+</video>
+
+<!-- 🔊 MUSIC (ADDED HERE) -->
+<audio id="bgMusic" loop>
+  <source src="music.mp3" type="audio/mpeg">
+</audio>
+
 <!-- START -->
 <div id="start" class="screen">
 
@@ -194,6 +216,11 @@ function openHub(){
   document.getElementById("start").classList.add("hidden");
   document.getElementById("hub").classList.remove("hidden");
 }
+
+/* 🔊 MUSIC (ADDED HERE - SAFE FOR GITHUB) */
+document.addEventListener("click", () => {
+  document.getElementById("bgMusic").play();
+}, { once: true });
 
 /* PARTICLES */
 for(let i=0;i<80;i++){
