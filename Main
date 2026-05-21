@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Game Collection Hub</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <title>Game Hub</title>
 
   <style>
 
@@ -17,8 +18,8 @@
     body{
       background:black;
       color:white;
-      overflow-x:hidden;
-      min-height:100vh;
+      overflow:hidden;
+      height:100vh;
       position:relative;
     }
 
@@ -27,8 +28,8 @@
     body::before{
       content:"";
       position:fixed;
-      width:100%;
-      height:100%;
+      inset:0;
+
       background:
       repeating-linear-gradient(
         90deg,
@@ -37,6 +38,7 @@
         transparent 2px,
         transparent 40px
       ),
+
       repeating-linear-gradient(
         0deg,
         rgba(255,255,255,0.02) 0px,
@@ -44,177 +46,23 @@
         transparent 2px,
         transparent 40px
       );
-      z-index:-3;
+
+      z-index:-2;
     }
 
     body::after{
       content:"";
       position:fixed;
-      width:100%;
-      height:100%;
+      inset:0;
+
       background:
-      radial-gradient(circle,
-      rgba(255,255,255,0.06) 0%,
-      rgba(0,0,0,0.95) 75%);
-      z-index:-2;
-    }
+      radial-gradient(
+        circle,
+        rgba(255,255,255,0.05) 0%,
+        rgba(0,0,0,0.95) 75%
+      );
 
-    /* LOADING SCREEN */
-
-    #loadingScreen{
-      position:fixed;
-      width:100%;
-      height:100vh;
-      background:black;
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-      z-index:9999;
-      animation:fadeOut 1.5s ease forwards;
-      animation-delay:2s;
-    }
-
-    .loadingTitle{
-      font-size:5rem;
-      letter-spacing:12px;
-
-      text-shadow:
-      0 0 10px white,
-      0 0 25px white,
-      0 0 50px rgba(255,255,255,0.5);
-
-      animation:pulse 2s infinite;
-    }
-
-    .loadingBar{
-      width:320px;
-      height:4px;
-      margin-top:30px;
-      background:rgba(255,255,255,0.08);
-      overflow:hidden;
-      border-radius:20px;
-    }
-
-    .loadingFill{
-      width:0%;
-      height:100%;
-      background:white;
-      animation:load 2s ease forwards;
-    }
-
-    /* MAIN */
-
-    .container{
-      padding:70px 40px;
-      text-align:center;
-      animation:fadeIn 2s ease;
-    }
-
-    .mainTitle{
-      font-size:6rem;
-      letter-spacing:14px;
-      margin-bottom:10px;
-
-      text-shadow:
-      0 0 10px white,
-      0 0 30px white;
-    }
-
-    .subTitle{
-      color:#cfcfcf;
-      letter-spacing:4px;
-      margin-bottom:60px;
-      font-size:1rem;
-    }
-
-    /* GRID */
-
-    .grid{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
-      gap:28px;
-      max-width:1500px;
-      margin:auto;
-    }
-
-    /* BUTTONS */
-
-    .hubButton{
-      position:relative;
-      overflow:hidden;
-
-      background:rgba(255,255,255,0.04);
-
-      border:1px solid rgba(255,255,255,0.12);
-
-      border-radius:24px;
-
-      padding:38px 25px;
-
-      color:white;
-      text-decoration:none;
-
-      font-size:1.15rem;
-      font-weight:bold;
-      letter-spacing:1px;
-
-      transition:0.35s ease;
-
-      backdrop-filter:blur(4px);
-
-      box-shadow:
-      0 0 10px rgba(255,255,255,0.05);
-    }
-
-    .hubButton:hover{
-
-      transform:
-      translateY(-10px)
-      scale(1.03);
-
-      border:1px solid white;
-
-      background:rgba(255,255,255,0.08);
-
-      box-shadow:
-      0 0 20px white,
-      0 0 60px rgba(255,255,255,0.4);
-    }
-
-    /* SHINE */
-
-    .hubButton::before{
-      content:"";
-      position:absolute;
-      top:0;
-      left:-120%;
-      width:60%;
-      height:100%;
-      background:rgba(255,255,255,0.2);
-      transform:skewX(-20deg);
-      transition:0.8s;
-    }
-
-    .hubButton:hover::before{
-      left:140%;
-    }
-
-    /* FLOATING LABEL */
-
-    .cornerText{
-      position:fixed;
-      bottom:22px;
-      left:22px;
-
-      font-size:1.2rem;
-      letter-spacing:5px;
-
-      text-shadow:
-      0 0 10px white,
-      0 0 20px white;
-
-      animation:glow 3s infinite alternate;
+      z-index:-1;
     }
 
     /* PARTICLES */
@@ -227,7 +75,163 @@
       border-radius:50%;
       opacity:0.4;
       z-index:-1;
+
       animation:float linear infinite;
+    }
+
+    /* SCREEN */
+
+    .screen{
+      position:absolute;
+      width:100%;
+      height:100vh;
+
+      display:flex;
+      justify-content:center;
+      align-items:center;
+      flex-direction:column;
+
+      animation:fadeIn 1s ease;
+    }
+
+    .hidden{
+      display:none;
+    }
+
+    /* TITLE */
+
+    .title{
+      font-size:6rem;
+      letter-spacing:12px;
+      margin-bottom:20px;
+
+      text-shadow:
+      0 0 10px white,
+      0 0 30px white;
+    }
+
+    .subTitle{
+      color:#d0d0d0;
+      letter-spacing:4px;
+      margin-bottom:50px;
+    }
+
+    /* BUTTON */
+
+    .startButton{
+
+      background:white;
+      color:black;
+
+      border:none;
+
+      padding:30px 70px;
+
+      font-size:2rem;
+      font-weight:bold;
+
+      border-radius:20px;
+
+      cursor:pointer;
+
+      transition:0.3s ease;
+
+      box-shadow:
+      0 0 15px white,
+      0 0 40px rgba(255,255,255,0.5);
+
+      animation:pulse 2s infinite;
+    }
+
+    .startButton:hover{
+
+      transform:scale(1.08);
+
+      background:black;
+      color:white;
+
+      border:2px solid white;
+
+      box-shadow:
+      0 0 25px white,
+      0 0 70px white;
+    }
+
+    /* HUB SCREEN */
+
+    #hubScreen{
+      width:100%;
+      height:100vh;
+
+      overflow-y:auto;
+
+      padding:60px 40px;
+
+      text-align:center;
+    }
+
+    .hubTitle{
+      font-size:4rem;
+      margin-bottom:50px;
+
+      text-shadow:
+      0 0 10px white,
+      0 0 30px white;
+    }
+
+    /* GRID */
+
+    .grid{
+      display:grid;
+
+      grid-template-columns:
+      repeat(auto-fit,minmax(260px,1fr));
+
+      gap:28px;
+
+      max-width:1500px;
+
+      margin:auto;
+    }
+
+    /* HUB BUTTONS */
+
+    .hubButton{
+
+      background:
+      rgba(255,255,255,0.04);
+
+      border:
+      1px solid rgba(255,255,255,0.12);
+
+      border-radius:24px;
+
+      padding:38px 25px;
+
+      color:white;
+
+      text-decoration:none;
+
+      font-size:1.15rem;
+      font-weight:bold;
+
+      transition:0.35s ease;
+    }
+
+    .hubButton:hover{
+
+      transform:
+      translateY(-10px)
+      scale(1.03);
+
+      border:1px solid white;
+
+      background:
+      rgba(255,255,255,0.08);
+
+      box-shadow:
+      0 0 20px white,
+      0 0 60px rgba(255,255,255,0.4);
     }
 
     /* ANIMATIONS */
@@ -235,43 +239,21 @@
     @keyframes pulse{
 
       0%{
-        opacity:0.7;
+        box-shadow:
+        0 0 10px white,
+        0 0 25px rgba(255,255,255,0.5);
       }
 
       50%{
-        opacity:1;
+        box-shadow:
+        0 0 30px white,
+        0 0 70px rgba(255,255,255,0.8);
       }
 
       100%{
-        opacity:0.7;
-      }
-    }
-
-    @keyframes glow{
-
-      from{
-        text-shadow:
-        0 0 5px white,
-        0 0 15px white;
-      }
-
-      to{
-        text-shadow:
-        0 0 20px white,
-        0 0 40px white;
-      }
-    }
-
-    @keyframes load{
-      to{
-        width:100%;
-      }
-    }
-
-    @keyframes fadeOut{
-      to{
-        opacity:0;
-        visibility:hidden;
+        box-shadow:
+        0 0 10px white,
+        0 0 25px rgba(255,255,255,0.5);
       }
     }
 
@@ -304,25 +286,11 @@
 
 <body>
 
-  <!-- LOADING -->
+  <!-- START SCREEN -->
 
-  <div id="loadingScreen">
+  <div class="screen" id="startScreen">
 
-    <div class="loadingTitle">
-      HUB
-    </div>
-
-    <div class="loadingBar">
-      <div class="loadingFill"></div>
-    </div>
-
-  </div>
-
-  <!-- MAIN -->
-
-  <div class="container">
-
-    <div class="mainTitle">
+    <div class="title">
       GAME HUB
     </div>
 
@@ -330,98 +298,113 @@
       GAME COLLECTION
     </div>
 
+    <button class="startButton" onclick="openHub()">
+      CLICK HERE
+    </button>
+
+  </div>
+
+  <!-- HUB SCREEN -->
+
+  <div id="hubScreen" class="hidden">
+
+    <div class="hubTitle">
+      HUB
+    </div>
+
     <div class="grid">
 
-      <a class="hubButton" href="https://sites.google.com/view/nuggie16-games/home" target="_blank">
-        Nuggie16 Games
+      <a class="hubButton"
+      href="https://sites.google.com/view/nuggie16-games/home"
+      target="_blank">
+      Nuggie16 Games
       </a>
 
-      <a class="hubButton" href="https://docs.google.com/document/d/1pLT1W8LLl8HxM2n_yQhI3VNjFWT4Dkid0g7wLOaFCrA/edit?tab=t.1pdxiwnzf52z" target="_blank">
-        Google Doc 1
+      <a class="hubButton"
+      href="https://sites.google.com/view/susanoosarcade/home"
+      target="_blank">
+      Susanoo Arcade
       </a>
 
-      <a class="hubButton" href="https://docs.google.com/document/d/1FWPW14wUWxv-yvE7t6YT6-hdmlx1TNt7qVoaLmIwR70/edit?tab=t.ojw015kkjr3r" target="_blank">
-        Google Doc 2
+      <a class="hubButton"
+      href="https://sites.google.com/view/ultimate-arcade-backup-again/home"
+      target="_blank">
+      Ultimate Arcade
       </a>
 
-      <a class="hubButton" href="https://docs.google.com/document/d/1pLT1W8LLl8HxM2n_yQhI3VNjFWT4Dkid0g7wLOaFCrA/edit?tab=t.3ecwn6gsxwdp" target="_blank">
-        Google Doc 3
+      <a class="hubButton"
+      href="https://sites.google.com/view/eternity-space"
+      target="_blank">
+      ETERNITY
       </a>
 
-      <a class="hubButton" href="https://docs.google.com/presentation/d/1OjrWHYHz5xbxhVYfWbDF4J0NdM3AYHC9x2pTchv4GuU/edit?slide=id.g2ce12de404b_0_10#slide=id.g2ce12de404b_0_10" target="_blank">
-        Presentation
+      <a class="hubButton"
+      href="https://sites.google.com/view/cookingwitjay-ultra/home"
+      target="_blank">
+      Cookingwitjay ULTRA
       </a>
 
-      <a class="hubButton" href="https://sites.google.com/ottumwaschools.com/vybrixv3/home" target="_blank">
-        Vybrix
+      <a class="hubButton"
+      href="https://sites.google.com/view/dominumnetworkv2/"
+      target="_blank">
+      Dominum Network
       </a>
 
-      <a class="hubButton" href="https://sites.google.com/view/gxming-zone-13-/home" target="_blank">
-        GXMING Zone
+      <a class="hubButton"
+      href="https://sites.google.com/view/gxming-zone-13-/home"
+      target="_blank">
+      GXMING Zone
       </a>
 
-      <a class="hubButton" href="https://sites.google.com/view/dominumnetworkv2/" target="_blank">
-        Dominum Network
+      <a class="hubButton"
+      href="https://sites.google.com/ottumwaschools.com/vybrixv3/home"
+      target="_blank">
+      Vybrix
       </a>
 
-      <a class="hubButton" href="https://sites.google.com/view/susanoosarcade/home" target="_blank">
-        Susanoo Arcade
-      </a>
-
-      <a class="hubButton" href="https://nevercap.ai/resources/youtube-to-mp4" target="_blank">
-        YouTube to MP4
-      </a>
-
-      <a class="hubButton" href="https://irv77.github.io/AmplerLauncher/" target="_blank">
-        Ampler Launcher
-      </a>
-
-      <a class="hubButton" href="https://sites.google.com/view/ultimate-arcade-backup-again/home" target="_blank">
-        Ultimate Arcade
-      </a>
-
-      <a class="hubButton" href="https://sites.google.com/view/botulinum-/home" target="_blank">
-        Botulinum
-      </a>
-
-      <a class="hubButton" href="https://sites.google.com/view/9-1project/home" target="_blank">
-        9.1 Project
-      </a>
-
-      <a class="hubButton" href="https://sites.google.com/view/eternity-space" target="_blank">
-        ETERNITY
-      </a>
-
-      <a class="hubButton" href="https://sites.google.com/view/cookingwitjay-ultra/home" target="_blank">
-        Cookingwitjay ULTRA
+      <a class="hubButton"
+      href="https://irv77.github.io/AmplerLauncher/"
+      target="_blank">
+      Ampler Launcher
       </a>
 
     </div>
 
   </div>
 
-  <!-- CORNER TEXT -->
-
-  <div class="cornerText">
-    ACCESS PANEL
-  </div>
-
   <script>
 
-    /* PARTICLES */
+    function openHub(){
 
-    for(let i=0;i<120;i++){
+      document
+      .getElementById("startScreen")
+      .classList.add("hidden");
 
-      let particle=document.createElement("div");
+      document
+      .getElementById("hubScreen")
+      .classList.remove("hidden");
+    }
+
+    /* FLOATING PARTICLES */
+
+    for(let i = 0; i < 100; i++){
+
+      const particle =
+      document.createElement("div");
 
       particle.classList.add("particle");
 
-      particle.style.left=Math.random()*100+"vw";
+      particle.style.left =
+      Math.random() * 100 + "vw";
 
-      particle.style.animationDuration=
-      (5+Math.random()*10)+"s";
+      particle.style.top =
+      Math.random() * 100 + "vh";
 
-      particle.style.opacity=Math.random();
+      particle.style.animationDuration =
+      (5 + Math.random() * 10) + "s";
+
+      particle.style.opacity =
+      Math.random();
 
       document.body.appendChild(particle);
     }
