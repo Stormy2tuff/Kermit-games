@@ -1,415 +1,301 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
+<meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
 
   <title>Game Hub</title>
+<title>Game Hub</title>
+
 
   <style>
+<style>
+
 
     *{
+*{
       margin:0;
+  margin:0;
       padding:0;
+  padding:0;
       box-sizing:border-box;
+  box-sizing:border-box;
       font-family:Arial,sans-serif;
+  font-family:Arial,sans-serif;
     }
+}
+
 
     body{
+body{
       background:black;
+  background:black;
       color:white;
+  color:white;
       overflow:hidden;
+  min-height:100vh;
       height:100vh;
+  position:relative;
       position:relative;
+  overflow-x:hidden; /* FIX: allow vertical scroll if needed */
     }
+}
+
 
     /* BACKGROUND */
+/* BACKGROUND */
+
 
     body::before{
+body::before{
       content:"";
+  content:"";
       position:fixed;
+  position:fixed;
       inset:0;
+  inset:0;
+
 
       background:
+  background:
       repeating-linear-gradient(
+  repeating-linear-gradient(
         90deg,
+    90deg,
         rgba(255,255,255,0.03) 0px,
+    rgba(255,255,255,0.03) 0px,
         rgba(255,255,255,0.03) 2px,
+    rgba(255,255,255,0.03) 2px,
         transparent 2px,
+    transparent 2px,
         transparent 40px
+    transparent 40px
       ),
-
-      repeating-linear-gradient(
-        0deg,
-        rgba(255,255,255,0.02) 0px,
-        rgba(255,255,255,0.02) 2px,
-        transparent 2px,
-        transparent 40px
-      );
-
-      z-index:-2;
-    }
-
-    body::after{
-      content:"";
-      position:fixed;
-      inset:0;
-
-      background:
-      radial-gradient(
-        circle,
-        rgba(255,255,255,0.05) 0%,
-        rgba(0,0,0,0.95) 75%
-      );
-
-      z-index:-1;
-    }
-
-    /* PARTICLES */
-
-    .particle{
-      position:fixed;
-      width:2px;
-      height:2px;
-      background:white;
-      border-radius:50%;
-      opacity:0.4;
-      z-index:-1;
-
-      animation:float linear infinite;
-    }
-
-    /* SCREEN */
-
-    .screen{
-      position:absolute;
-      width:100%;
-      height:100vh;
-
-      display:flex;
-      justify-content:center;
-      align-items:center;
-      flex-direction:column;
-
-      animation:fadeIn 1s ease;
-    }
-
-    .hidden{
-      display:none;
-    }
-
-    /* TITLE */
-
-    .title{
-      font-size:6rem;
-      letter-spacing:12px;
-      margin-bottom:20px;
-
-      text-shadow:
-      0 0 10px white,
-      0 0 30px white;
-    }
-
-    .subTitle{
-      color:#d0d0d0;
-      letter-spacing:4px;
-      margin-bottom:50px;
-    }
-
-    /* BUTTON */
-
-    .startButton{
-
-      background:white;
-      color:black;
-
-      border:none;
-
-      padding:30px 70px;
-
-      font-size:2rem;
-      font-weight:bold;
-
-      border-radius:20px;
-
-      cursor:pointer;
-
-      transition:0.3s ease;
-
-      box-shadow:
-      0 0 15px white,
-      0 0 40px rgba(255,255,255,0.5);
-
-      animation:pulse 2s infinite;
-    }
-
-    .startButton:hover{
-
-      transform:scale(1.08);
-
-      background:black;
-      color:white;
-
-      border:2px solid white;
-
-      box-shadow:
-      0 0 25px white,
-      0 0 70px white;
-    }
-
-    /* HUB SCREEN */
-
-    #hubScreen{
-      width:100%;
-      height:100vh;
-
-      overflow-y:auto;
-
-      padding:60px 40px;
-
-      text-align:center;
-    }
-
-    .hubTitle{
-      font-size:4rem;
-      margin-bottom:50px;
-
-      text-shadow:
-      0 0 10px white,
-      0 0 30px white;
-    }
-
-    /* GRID */
-
-    .grid{
-      display:grid;
-
-      grid-template-columns:
-      repeat(auto-fit,minmax(260px,1fr));
-
-      gap:28px;
-
-      max-width:1500px;
-
-      margin:auto;
-    }
-
-    /* HUB BUTTONS */
-
-    .hubButton{
-
-      background:
-      rgba(255,255,255,0.04);
-
-      border:
-      1px solid rgba(255,255,255,0.12);
-
-      border-radius:24px;
-
-      padding:38px 25px;
-
-      color:white;
-
-      text-decoration:none;
-
-      font-size:1.15rem;
-      font-weight:bold;
-
-      transition:0.35s ease;
-    }
-
-    .hubButton:hover{
-
-      transform:
-      translateY(-10px)
-      scale(1.03);
-
-      border:1px solid white;
-
-      background:
-      rgba(255,255,255,0.08);
-
-      box-shadow:
-      0 0 20px white,
-      0 0 60px rgba(255,255,255,0.4);
-    }
-
-    /* ANIMATIONS */
-
-    @keyframes pulse{
-
-      0%{
-        box-shadow:
-        0 0 10px white,
-        0 0 25px rgba(255,255,255,0.5);
-      }
-
-      50%{
-        box-shadow:
-        0 0 30px white,
-        0 0 70px rgba(255,255,255,0.8);
-      }
-
-      100%{
-        box-shadow:
-        0 0 10px white,
-        0 0 25px rgba(255,255,255,0.5);
-      }
-    }
-
-    @keyframes fadeIn{
-
-      from{
-        opacity:0;
-        transform:translateY(20px);
-      }
-
-      to{
-        opacity:1;
-        transform:translateY(0);
-      }
-    }
-
-    @keyframes float{
-
-      from{
-        transform:translateY(100vh);
-      }
-
-      to{
-        transform:translateY(-100vh);
-      }
-    }
-
-  </style>
+  ),
+  repeating-linear-gradient(
+    0deg,
+    rgba(255,255,255,0.02) 0px,
+    rgba(255,255,255,0.02) 2px,
+    transparent 2px,
+    transparent 40px
+  );
+
+  z-index:-2;
+}
+
+body::after{
+  content:"";
+  position:fixed;
+  inset:0;
+
+  background:radial-gradient(
+    circle,
+    rgba(255,255,255,0.05) 0%,
+    rgba(0,0,0,0.95) 75%
+  );
+
+  z-index:-1;
+}
+
+/* PARTICLES */
+.particle{
+  position:fixed;
+  width:2px;
+  height:2px;
+  background:white;
+  border-radius:50%;
+  opacity:0.4;
+  z-index:-1;
+
+  pointer-events:none; /* FIX: prevents blocking clicks */
+  animation:float linear infinite;
+}
+
+/* SCREENS */
+
+.screen{
+  position:absolute;
+  width:100%;
+  height:100vh;
+
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  flex-direction:column;
+
+  animation:fadeIn 1s ease;
+}
+
+.hidden{
+  display:none;
+}
+
+/* TITLE */
+
+.title{
+  font-size:6rem;
+  letter-spacing:12px;
+  margin-bottom:20px;
+  text-shadow:0 0 10px white, 0 0 30px white;
+}
+
+.subTitle{
+  color:#d0d0d0;
+  letter-spacing:4px;
+  margin-bottom:50px;
+}
+
+/* BUTTON */
+
+.startButton{
+  background:white;
+  color:black;
+  border:none;
+
+  padding:30px 70px;
+  font-size:2rem;
+  font-weight:bold;
+
+  border-radius:20px;
+  cursor:pointer;
+
+  transition:0.3s ease;
+
+  box-shadow:0 0 15px white, 0 0 40px rgba(255,255,255,0.5);
+  animation:pulse 2s infinite;
+}
+
+.startButton:hover{
+  transform:scale(1.08);
+  background:black;
+  color:white;
+  border:2px solid white;
+
+  box-shadow:0 0 25px white, 0 0 70px white;
+}
+
+/* HUB */
+
+#hubScreen{
+  width:100%;
+  min-height:100vh;
+  overflow-y:auto; /* FIX: proper scrolling */
+  padding:60px 40px;
+  text-align:center;
+}
+
+/* GRID */
+
+.grid{
+  display:grid;
+  grid-template-columns:repeat(auto-fit,minmax(260px,1fr));
+  gap:28px;
+  max-width:1500px;
+  margin:auto;
+}
+/* HUB BUTTONS */
+
+.hubButton{
+  background:rgba(255,255,255,0.04);
+  border:1px solid rgba(255,255,255,0.12);
+  border-radius:24px;
+
+  padding:38px 25px;
+
+  color:white;
+  text-decoration:none;
+
+  font-size:1.15rem;
+  font-weight:bold;
+
+  transition:0.35s ease;
+}
+
+.hubButton:hover{
+  transform:translateY(-10px) scale(1.03);
+  border:1px solid white;
+
+  background:rgba(255,255,255,0.08);
+  box-shadow:0 0 20px white, 0 0 60px rgba(255,255,255,0.4);
+}
+
+/* ANIMATIONS */
+
+@keyframes pulse{
+  0%{box-shadow:0 0 10px white, 0 0 25px rgba(255,255,255,0.5);}
+  50%{box-shadow:0 0 30px white, 0 0 70px rgba(255,255,255,0.8);}
+  100%{box-shadow:0 0 10px white, 0 0 25px rgba(255,255,255,0.5);}
+}
+
+@keyframes fadeIn{
+  from{opacity:0; transform:translateY(20px);}
+  to{opacity:1; transform:translateY(0);}
+}
+
+@keyframes float{
+  from{transform:translateY(100vh);}
+  to{transform:translateY(-100vh);}
+}
+
+</style>
 </head>
 
 <body>
 
-  <!-- START SCREEN -->
+<div class="screen" id="startScreen">
 
-  <div class="screen" id="startScreen">
+  <div class="title">GAME HUB</div>
+  <div class="subTitle">GAME COLLECTION</div>
 
-    <div class="title">
-      GAME HUB
-    </div>
+  <button class="startButton" onclick="openHub()">
+    CLICK HERE
+  </button>
 
-    <div class="subTitle">
-      GAME COLLECTION
-    </div>
+</div>
 
-    <button class="startButton" onclick="openHub()">
-      CLICK HERE
-    </button>
+<div id="hubScreen" class="hidden">
 
-  </div>
+  <div class="hubTitle">HUB</div>
 
-  <!-- HUB SCREEN -->
+  <div class="grid">
 
-  <div id="hubScreen" class="hidden">
-
-    <div class="hubTitle">
-      HUB
-    </div>
-
-    <div class="grid">
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/nuggie16-games/home"
-      target="_blank">
-      Nuggie16 Games
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/susanoosarcade/home"
-      target="_blank">
-      Susanoo Arcade
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/ultimate-arcade-backup-again/home"
-      target="_blank">
-      Ultimate Arcade
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/eternity-space"
-      target="_blank">
-      ETERNITY
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/cookingwitjay-ultra/home"
-      target="_blank">
-      Cookingwitjay ULTRA
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/dominumnetworkv2/"
-      target="_blank">
-      Dominum Network
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/view/gxming-zone-13-/home"
-      target="_blank">
-      GXMING Zone
-      </a>
-
-      <a class="hubButton"
-      href="https://sites.google.com/ottumwaschools.com/vybrixv3/home"
-      target="_blank">
-      Vybrix
-      </a>
-
-      <a class="hubButton"
-      href="https://irv77.github.io/AmplerLauncher/"
-      target="_blank">
-      Ampler Launcher
-      </a>
-
-    </div>
+    <a class="hubButton" href="https://sites.google.com/view/nuggie16-games/home" target="_blank">Nuggie16 Games</a>
+    <a class="hubButton" href="https://sites.google.com/view/susanoosarcade/home" target="_blank">Susanoo Arcade</a>
+    <a class="hubButton" href="https://sites.google.com/view/ultimate-arcade-backup-again/home" target="_blank">Ultimate Arcade</a>
+    <a class="hubButton" href="https://sites.google.com/view/eternity-space" target="_blank">ETERNITY</a>
+    <a class="hubButton" href="https://sites.google.com/view/cookingwitjay-ultra/home" target="_blank">Cookingwitjay ULTRA</a>
+    <a class="hubButton" href="https://sites.google.com/view/dominumnetworkv2/" target="_blank">Dominum Network</a>
+    <a class="hubButton" href="https://sites.google.com/view/gxming-zone-13-/home" target="_blank">GXMING Zone</a>
+    <a class="hubButton" href="https://sites.google.com/ottumwaschools.com/vybrixv3/home" target="_blank">Vybrix</a>
+    <a class="hubButton" href="https://irv77.github.io/AmplerLauncher/" target="_blank">Ampler Launcher</a>
 
   </div>
 
-  <script>
+</div>
 
-    function openHub(){
+<script>
 
-      document
-      .getElementById("startScreen")
-      .classList.add("hidden");
+function openHub(){
+  document.getElementById("startScreen").classList.add("hidden");
+  document.getElementById("hubScreen").classList.remove("hidden");
+}
 
-      document
-      .getElementById("hubScreen")
-      .classList.remove("hidden");
-    }
+/* PARTICLES */
+for(let i = 0; i < 100; i++){
+  const particle = document.createElement("div");
+  particle.classList.add("particle");
 
-    /* FLOATING PARTICLES */
+  particle.style.left = Math.random() * 100 + "vw";
+  particle.style.top = Math.random() * 100 + "vh";
+  particle.style.animationDuration = (5 + Math.random() * 10) + "s";
+  particle.style.opacity = Math.random();
 
-    for(let i = 0; i < 100; i++){
+  document.body.appendChild(particle);
+}
 
-      const particle =
-      document.createElement("div");
-
-      particle.classList.add("particle");
-
-      particle.style.left =
-      Math.random() * 100 + "vw";
-
-      particle.style.top =
-      Math.random() * 100 + "vh";
-
-      particle.style.animationDuration =
-      (5 + Math.random() * 10) + "s";
-
-      particle.style.opacity =
-      Math.random();
-
-      document.body.appendChild(particle);
-    }
-
-  </script>
+</script>
 
 </body>
 </html>
